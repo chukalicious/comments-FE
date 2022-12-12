@@ -1,0 +1,13 @@
+:root {
+  --my-color: #fff;
+}
+[data-theme="fantasy"] {
+  --my-color: #6e0b75;
+}
+[data-theme="synthwave"] {
+  --my-color: #e779c1;
+}
+
+body {
+  background-color: var(--my-color);
+}
