@@ -1,0 +1,3 @@
+export const START_COMMENT = "START_COMMENT";
+export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
+export const COMMENT_FAIL = "COMMENT_FAIL";
