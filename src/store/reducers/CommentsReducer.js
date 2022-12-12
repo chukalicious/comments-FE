@@ -6,6 +6,7 @@ const initialState = {
   error: "",
   isLoading: false,
   loggedIn: false,
+  comments: [],
 };
 
 export const commentsReducer = (state = initialState, action) => {
