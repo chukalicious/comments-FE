@@ -7,7 +7,9 @@ export const getComments = () => (dispatch) => {
     .get("http://localhost:4000/comments")
     .then((res) => {
       console.log(res);
-      dispatch({ type: COMMENT_SUCCESS, payload: res.data });
+      setTimeout(() => {
+        dispatch({ type: COMMENT_SUCCESS, payload: res.data });
+      }, 1000);
     })
     .catch((err) => {
       console.log(err);
