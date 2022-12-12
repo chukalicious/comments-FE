@@ -1,15 +1,8 @@
-import { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
 import Comment from "./Comment";
 import { connect } from "react-redux";
 
 const CommentContainer = (props) => {
-  console.log("CommentContainer: props", props.comments);
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    setComments(props.comments.comments);
-  }, [props.comments, props.isLoading]);
-
   return (
     <div>
       {props.isLoading ? (
@@ -26,7 +19,7 @@ const CommentContainer = (props) => {
           strokeWidthSecondary={2}
         />
       ) : (
-        comments.map((comm, i) => <Comment key={i} commentsData={comm} />)
+        props.comments.map((comm, i) => <Comment key={i} commentsData={comm} />)
       )}
     </div>
   );
@@ -34,7 +27,7 @@ const CommentContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    comments: state.comments,
+    comments: state.comments.comments,
     isLoading: state.isLoading,
   };
 };
