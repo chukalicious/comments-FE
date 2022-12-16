@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 
 const Signup = () => {
   const {
@@ -58,6 +59,19 @@ const Signup = () => {
           <button className="btn btn-block btn-primary">Send</button>
         </div>
       </form>
+      <div className="flex flex-col w-full py-7 px-[.35rem]">
+        <div className="flex flex-col w-full border-opacity-50">
+          <div className="divider">OR</div>
+          <div className="h-20 flex w-full mx-auto">
+            <button className="btn gap-2 btn-outline w-[45%] my-4 mx-auto btn-primary">
+              <FaGooglePlusG className="text-[1.5rem] uppercase" /> Google
+            </button>
+            <button className="btn gap-2 btn-outline w-[45%] my-4 mx-auto btn-primary">
+              <FaFacebookF className="uppercase" /> Facebook
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
