@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect } from "react";
 import { themeChange } from "theme-change";
+import { Route, Routes } from "react-router-dom";
 
 import Test from "./components/Test";
 import SignupContainer from "./components/SignupComponent";
@@ -15,7 +16,9 @@ function App() {
   return (
     <div>
       <Test />
-      <SignupContainer />
+      <Routes>
+        <Route path="/signup" element={<SignupContainer />} />
+      </Routes>
       <CommentContainer />
     </div>
   );
