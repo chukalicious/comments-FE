@@ -38,7 +38,7 @@ const Signup = () => {
         <h2>
           Already a member?{" "}
           <span className="text-info hover:underline">
-            <Link to="">Sign In</Link>
+            <Link to="/login">Sign In</Link>
           </span>
         </h2>
       </div>
@@ -97,7 +97,7 @@ const Signup = () => {
           <label className="label">
             <span className="label-text-alt text-error">Forgot Password?</span>
           </label>
-          <button className="btn btn-block btn-primary">Send</button>
+          <button className="btn btn-block btn-primary">Register</button>
         </div>
       </form>
       <div className="flex flex-col w-full py-7 px-[.35rem]">
