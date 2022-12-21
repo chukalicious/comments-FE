@@ -1,23 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import * as yup from "yup";
+
+const initialState = {
+  email: "",
+  username: "",
+  password: "",
+};
+const initialErrors = {
+  email: "",
+  username: "",
+  password: "",
+};
+const initialDisabled = true;
 
 const Signup = () => {
   //this signup state will be sent to the global state in an function called
   // Register user, or something of the like
-  const [signupState, setSignupState] = useState({
-    email: "",
-    password: "",
-    reEnter: "",
+  const [signupState, setSignupState] = useState(initialState);
+  console.log("Signup: signupState: ", signupState);
+  const [formErrors, setFormErrors] = useState(initialErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
+
+  // Validation
+
+  const formSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Must be a valid email")
+      .required("Must include email address"),
+    username: yup
+      .string()
+      .required("You must choose a username!")
+      .min(3, "Username must contain at least 3 characters."),
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(8, `Password must be at least 8 characters long.`),
   });
 
-  console.log("Signup: signupState: ", signupState);
+  //Helpers
+  const postNewUser = (newUser) => {
+    axios
+      .post("http://localhost:4000/users", newUser)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    console.log("starting change");
+    formSchema.isValid(signupState).then((valid) => {
+      console.log("is it valid? ", valid);
+      setDisabled(!valid);
+    });
+  }, [signupState]);
 
   const handleChange = (e) => {
     setSignupState({ ...signupState, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    postNewUser(signupState);
   };
 
   return (
@@ -47,7 +94,22 @@ const Signup = () => {
             className="input input-bordered input-primary max-w-sm"
           />
           <label className="label">
-            <span className="label-text">Your password</span>
+            <span className="label-text">
+              Choose a username<span className="text-error"> *</span>
+            </span>
+          </label>
+          <input
+            name="username"
+            type="text"
+            value={signupState.username}
+            onChange={handleChange}
+            placeholder="Enter a username"
+            className="input input-bordered input-primary max-w-sm"
+          />
+          <label className="label">
+            <span className="label-text">
+              Enter a password<span className="text-error"> *</span>
+            </span>
           </label>
           <input
             name="password"
@@ -58,19 +120,8 @@ const Signup = () => {
             className="input input-bordered input-primary max-w-sm"
           />
           <label className="label">
-            <span className="label-text">Re-enter Password</span>
-          </label>
-          <input
-            name="reEnter"
-            type="password"
-            value={signupState.reEnter}
-            onChange={handleChange}
-            placeholder="Re-enter your password"
-            className="input input-bordered input-primary max-w-sm"
-          />
-          <label className="label">
             <span className="label-text-alt text-error">Forgot Password?</span>
-          </label>
+          </label>{" "}
           <button className="btn btn-block btn-primary">Register</button>
         </div>
       </form>
@@ -81,7 +132,7 @@ const Signup = () => {
             <button className="btn gap-2 btn-outline w-[45%] my-4 mx-auto btn-primary">
               <FaGooglePlusG className="text-[1.5rem] uppercase" /> Google
             </button>
-            <button className="btn gap-2 btn-outline w-[45%] my-4 mx-auto btn-primary">
+            <button className="btn gap-2 btn-outline w-[45%] my-4 mx-auto btn-primary ">
               <FaFacebookF className="uppercase" /> Facebook
             </button>
           </div>
