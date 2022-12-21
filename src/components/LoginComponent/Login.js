@@ -17,7 +17,6 @@ const initialDisabled = true;
 
 const Login = () => {
   const [credentials, setCredentials] = useState(initialState);
-  console.log("Login: credentials: ", credentials);
   const [credentialErrors, setCredentialErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
@@ -43,6 +42,17 @@ const Login = () => {
       );
   };
 
+  ////////// Helpers////////////
+  const loginUser = (enteredCredentials) => {
+    axios
+      .post("http://localhost:4000/users/login/log", enteredCredentials)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setCredentials(initialState));
+  };
+
   const inputChange = (name, value) => {
     validate(name, value);
     setCredentials({
@@ -58,11 +68,12 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    loginUser(credentials);
   };
 
   useEffect(() => {
     schema.isValid(credentials).then((valid) => setDisabled(!valid));
-  }, [credentials, credentialErrors]);
+  }, [credentials, credentialErrors, schema]);
   return (
     <div className="flex flex-col w-full mx-auto mt-10">
       <div className="text-center">
