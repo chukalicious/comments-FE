@@ -18,12 +18,10 @@ function App() {
   return (
     <div>
       <NavbarContainer />
-      <Test />
       <Routes>
         <Route path="/signup" element={<SignupContainer />} />
         <Route path="/login" element={<LoginContainer />} />
       </Routes>
-      <CommentContainer />
     </div>
   );
 }
