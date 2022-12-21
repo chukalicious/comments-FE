@@ -4,10 +4,10 @@ import { themeChange } from "theme-change";
 import { Route, Routes } from "react-router-dom";
 
 import NavbarContainer from "./components/NavbarComponent";
-import Test from "./components/Test";
+import Home from "./pages/Home";
 import SignupContainer from "./components/SignupComponent";
-import CommentContainer from "./components/CommentsComponent";
 import LoginContainer from "./components/LoginComponent/Login";
+import Footer from "./pages/Footer";
 
 function App() {
   useEffect(() => {
@@ -19,9 +19,11 @@ function App() {
     <div>
       <NavbarContainer />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignupContainer />} />
         <Route path="/login" element={<LoginContainer />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
