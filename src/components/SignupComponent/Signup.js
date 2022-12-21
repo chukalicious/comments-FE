@@ -41,6 +41,14 @@ const Signup = () => {
       .min(8, `Password must be at least 8 characters long.`),
   });
 
+  const validateSchema = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
   //Helpers
   const postNewUser = (newUser) => {
     axios
@@ -48,24 +56,31 @@ const Signup = () => {
       .then((res) => {
         console.log(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setSignupState(initialState));
   };
 
-  useEffect(() => {
-    console.log("starting change");
-    formSchema.isValid(signupState).then((valid) => {
-      console.log("is it valid? ", valid);
-      setDisabled(!valid);
+  const inputChange = (name, value) => {
+    validateSchema(name, value);
+    setSignupState({
+      ...signupState,
+      [name]: value, // NOT AN ARRAY
     });
-  }, [signupState]);
+  };
 
   const handleChange = (e) => {
-    setSignupState({ ...signupState, [e.target.name]: e.target.value });
+    const valueToUse = e.target.value;
+    inputChange(e.target.name, valueToUse);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     postNewUser(signupState);
   };
+
+  useEffect(() => {
+    formSchema.isValid(signupState).then((valid) => setDisabled(!valid));
+  }, [signupState, formErrors]);
 
   return (
     <div className="flex flex-col w-full mx-auto mt-10">
@@ -93,6 +108,7 @@ const Signup = () => {
             placeholder="Enter your email"
             className="input input-bordered input-primary max-w-sm"
           />
+          <div className="label text-error">{formErrors.email}</div>
           <label className="label">
             <span className="label-text">
               Choose a username<span className="text-error"> *</span>
@@ -106,6 +122,7 @@ const Signup = () => {
             placeholder="Enter a username"
             className="input input-bordered input-primary max-w-sm"
           />
+          <div className="label text-error">{formErrors.username}</div>
           <label className="label">
             <span className="label-text">
               Enter a password<span className="text-error"> *</span>
@@ -119,10 +136,13 @@ const Signup = () => {
             placeholder="Enter your password"
             className="input input-bordered input-primary max-w-sm"
           />
+          <div className="label text-error">{formErrors.password}</div>
           <label className="label">
             <span className="label-text-alt text-error">Forgot Password?</span>
           </label>{" "}
-          <button className="btn btn-block btn-primary">Register</button>
+          <button disabled={disabled} className="btn btn-block btn-primary">
+            Register
+          </button>
         </div>
       </form>
       <div className="flex flex-col w-full py-7 px-[.35rem]">
