@@ -1,36 +1,8 @@
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm({
-    criteriaMode: "all",
-  });
-
-  const handleFormData = (data) => {
-    console.log(data);
-    console.log(errors);
-  };
-
-  useEffect(() => {
-    setError(
-      "Email",
-      {
-        types: {
-          required: "Please enter your email address",
-          pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
-        },
-      },
-      "Password",
-      { types: { required: true, minLength: 8 } }
-    );
-  }, [setError]);
   return (
     <div className="flex flex-col w-full mx-auto mt-10">
       <div className="text-center">
@@ -42,10 +14,7 @@ const Login = () => {
           </span>
         </h2>
       </div>
-      <form
-        onSubmit={handleSubmit(handleFormData)}
-        className="flex w-[95%] mx-auto"
-      >
+      <form className="flex w-[95%] mx-auto">
         <div className="flex flex-col w-full py-7 px-[.35rem] ">
           <label className="label">
             <span className="label-text">
@@ -54,33 +23,16 @@ const Login = () => {
           </label>
           <input
             type="email"
-            {...register("Email")}
             placeholder="Enter your email"
             className="input input-bordered input-primary max-w-sm"
           />
-          {errors.Email && errors.Email.types && (
-            <p className="pt-2 ml-2 text-error text-sm">
-              {errors.Email.types.required}
-            </p>
-          )}
           <label className="label">
             <span className="label-text">Your password</span>
           </label>
           <input
-            {...register("Password")}
             placeholder="Enter your password"
             className="input input-bordered input-primary max-w-sm"
           />
-          {errors.Password && (
-            <p className="pt-2 ml-2 text-error text-sm">
-              {errors.Password.types.required}
-            </p>
-          )}
-          {errors.Password && errors.Password.types && (
-            <p className="pt-2 ml-2 text-error text-sm">
-              {errors.Password.types.required}
-            </p>
-          )}
 
           <label className="label">
             <span className="label-text-alt text-error">Forgot Password?</span>
