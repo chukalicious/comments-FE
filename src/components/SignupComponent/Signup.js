@@ -52,9 +52,9 @@ const Signup = () => {
   //Helpers
   const postNewUser = (newUser) => {
     axios
-      .post("http://localhost:4000/users", newUser)
+      .post("http://localhost:4000/users/signup", newUser)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setSignupState(initialState));
@@ -80,7 +80,7 @@ const Signup = () => {
 
   useEffect(() => {
     formSchema.isValid(signupState).then((valid) => setDisabled(!valid));
-  }, [signupState, formErrors]);
+  }, [signupState, formErrors, formSchema]);
 
   return (
     <div className="flex flex-col w-full mx-auto mt-10">
