@@ -30,12 +30,12 @@ export const signup = (user) => (dispatch) => {
     .post("http://localhost:4000/users/signup", user)
     .then((res) => {
       console.log("res en el sigunup success", res);
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", res.data.user.password);
 
-      dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.user });
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: SIGNUP_FAIL, payload: err });
+      dispatch({ type: SIGNUP_FAIL, payload: err.message });
     });
 };

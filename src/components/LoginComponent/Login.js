@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { Link, Navigate } from "react-router-dom";
+// import { } from "../../store/actions/index"
 import { connect } from "react-redux";
 import axios from "axios";
 import * as yup from "yup";
 
 const initialState = {
-  // loggedIn: false,
-  // isLoading: false,
-  // errors: "",
   email: "",
   password: "",
 };
@@ -51,10 +49,10 @@ const Login = (props) => {
     axios
       .post("http://localhost:4000/users/login/log", enteredCredentials)
       .then((res) => {
-        console.log(res.data.token);
+        console.log(res);
         localStorage.setItem("token", res.data.token);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err.message))
       .finally(() => setCredentials(initialState));
   };
 

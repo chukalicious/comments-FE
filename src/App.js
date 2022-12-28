@@ -9,7 +9,6 @@ import Home from "./pages/Home";
 import SignupContainer from "./components/SignupComponent";
 import LoginContainer from "./components/LoginComponent/Login";
 import DashboardContainer from "./components/DashboardComponent";
-import Test from "./components/Test";
 import Footer from "./pages/Footer";
 
 function App() {

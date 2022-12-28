@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { signup } from "../../store/actions/index";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import * as yup from "yup";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 const initialState = {
   email: "",
@@ -20,15 +18,12 @@ const initialErrors = {
 const initialDisabled = true;
 
 const Signup = (props) => {
-  console.log("signup, state props: ", props);
-  //this signup state will be sent to the global state in an function called
-  // Register user, or something of the like
+  // Local State //
   const [signupState, setSignupState] = useState(initialState);
-  console.log("Signup: signupState: ", signupState);
   const [formErrors, setFormErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  // Validation
+  // Validation //
 
   const formSchema = yup.object().shape({
     email: yup
@@ -53,15 +48,8 @@ const Signup = (props) => {
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
-  //Helpers
-  const postNewUser = (newUser) => {
-    axios
-      .post("http://localhost:4000/users/signup", newUser)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setSignupState(initialState));
+  const clearForm = () => {
+    setSignupState(initialState);
   };
 
   const inputChange = (name, value) => {
@@ -79,8 +67,8 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postNewUser(signupState);
     props.signup(signupState);
+    clearForm();
   };
 
   useEffect(() => {
@@ -169,7 +157,10 @@ const Signup = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    username: state.user,
+    isLoading: state.isLoading,
+    loggedIn: state.loggedIn,
+    error: state.error,
   };
 };
 export default connect(mapStateToProps, { signup })(Signup);
