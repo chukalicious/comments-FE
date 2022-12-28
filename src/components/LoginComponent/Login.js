@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, Navigate } from "react-router-dom";
+import { login } from "../../store/actions/index";
+import { connect } from "react-redux";
 import * as yup from "yup";
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialErrors = {
 
 const initialDisabled = true;
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState(initialState);
   const [credentialErrors, setCredentialErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -42,17 +43,6 @@ const Login = () => {
       );
   };
 
-  ////////// Helpers////////////
-  const loginUser = (enteredCredentials) => {
-    axios
-      .post("http://localhost:4000/users/login/log", enteredCredentials)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setCredentials(initialState));
-  };
-
   const inputChange = (name, value) => {
     validate(name, value);
     setCredentials({
@@ -68,12 +58,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser(credentials);
+    props.login(credentials);
+    localStorage.setItem("token", props.token);
+    <Navigate to="/dashboard" />;
   };
 
   useEffect(() => {
     schema.isValid(credentials).then((valid) => setDisabled(!valid));
   }, [credentials, credentialErrors, schema]);
+
   return (
     <div className="flex flex-col w-full mx-auto mt-10">
       <div className="text-center">
@@ -142,4 +135,11 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.loggedIn,
+    user: state.user,
+    token: state.token,
+  };
+};
+export default connect(mapStateToProps, { login })(Login);
