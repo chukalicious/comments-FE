@@ -15,10 +15,12 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import { commentsReducer } from "./store/reducers/CommentsReducer";
 import { signupReducer } from "./store/reducers/SignupReducer";
+import { loginReducer } from "./store/reducers/LoginReducer";
 
 const reducers = combineReducers({
   comments: commentsReducer,
   signup: signupReducer,
+  login: loginReducer,
 });
 
 const store = configureStore(
