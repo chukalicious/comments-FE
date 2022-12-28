@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { signup } from "../../store/actions/index";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
+import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 const initialState = {
   email: "",
@@ -16,7 +19,8 @@ const initialErrors = {
 };
 const initialDisabled = true;
 
-const Signup = () => {
+const Signup = (props) => {
+  console.log("signup, state props: ", props);
   //this signup state will be sent to the global state in an function called
   // Register user, or something of the like
   const [signupState, setSignupState] = useState(initialState);
@@ -76,6 +80,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     postNewUser(signupState);
+    props.signup(signupState);
   };
 
   useEffect(() => {
@@ -162,4 +167,9 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+export default connect(mapStateToProps, { signup })(Signup);

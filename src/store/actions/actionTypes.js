@@ -1,3 +1,6 @@
 export const START_COMMENT = "START_COMMENT";
 export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
 export const COMMENT_FAIL = "COMMENT_FAIL";
+export const START_SIGNUP = "START_SIGNUP";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
