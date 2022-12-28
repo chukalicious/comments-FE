@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 import axios from "axios";
 import * as yup from "yup";
 
 const initialState = {
+  // loggedIn: false,
+  // isLoading: false,
+  // errors: "",
   email: "",
   password: "",
 };
@@ -15,7 +19,7 @@ const initialErrors = {
 
 const initialDisabled = true;
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState(initialState);
   const [credentialErrors, setCredentialErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -47,7 +51,8 @@ const Login = () => {
     axios
       .post("http://localhost:4000/users/login/log", enteredCredentials)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.token);
+        localStorage.setItem("token", res.data.token);
       })
       .catch((err) => console.log(err))
       .finally(() => setCredentials(initialState));
@@ -69,6 +74,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUser(credentials);
+    if (localStorage.getItem("token")) {
+      <Navigate to="/dashboard" />;
+    } else {
+      console.log("there's no token");
+    }
   };
 
   useEffect(() => {
@@ -142,4 +152,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.loggedIn,
+    user: state.user,
+  };
+};
+export default connect(mapStateToProps, {})(Login);
