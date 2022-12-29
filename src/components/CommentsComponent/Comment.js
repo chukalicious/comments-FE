@@ -3,7 +3,9 @@ const Comment = (props) => {
 
   return (
     <div className="py-8  flex flex-col w-full">
-      <h2 className="mx-auto">these are the comments</h2>
+      <h2 className="mx-auto">
+        Have a post title here, this requires backend, database, migration, etc
+      </h2>
       <div className="card w-96 bg-base-100 shadow-xl mx-auto">
         <div className="card-body">
           <p>{props.commentsData.comment}</p>

@@ -1,8 +1,8 @@
 import axios from "axios";
 import {
-  START_COMMENT,
-  COMMENT_SUCCESS,
-  COMMENT_FAIL,
+  START_GET_COMMENT,
+  GET_COMMENT_SUCCESS,
+  GET_COMMENT_FAIL,
   START_SIGNUP,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
@@ -12,18 +12,18 @@ import {
 } from "./actionTypes";
 
 export const getComments = () => (dispatch) => {
-  dispatch({ type: START_COMMENT });
+  dispatch({ type: START_GET_COMMENT });
   axios
     .get("http://localhost:4000/comments")
     .then((res) => {
       console.log(res);
       setTimeout(() => {
-        dispatch({ type: COMMENT_SUCCESS, payload: res.data });
+        dispatch({ type: GET_COMMENT_SUCCESS, payload: res.data });
       }, 1000);
     })
     .catch((err) => {
       console.log(err);
-      dispatch({ type: COMMENT_FAIL, payload: err });
+      dispatch({ type: GET_COMMENT_FAIL, payload: err });
     });
 };
 

@@ -1,7 +1,7 @@
-import { getComments } from "../store/actions/index";
+import { getComments } from "../../store/actions/index";
 import { connect } from "react-redux";
 
-const Test = (props) => {
+const RefreshComments = (props) => {
   const handleClick = () => {
     props.getComments();
   };
@@ -9,7 +9,7 @@ const Test = (props) => {
   return (
     <div className="flex">
       <button onClick={handleClick} className="btn mx-auto mt-16">
-        Call API
+        Get Comments
       </button>
     </div>
   );
@@ -18,4 +18,4 @@ const Test = (props) => {
 const mapStateToProps = (state) => {
   return { comments: state.comments.comments };
 };
-export default connect(mapStateToProps, { getComments })(Test);
+export default connect(mapStateToProps, { getComments })(RefreshComments);

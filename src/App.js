@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { themeChange } from "theme-change";
 import { Route, Routes } from "react-router-dom";
 
-import PrivateRoutes from "./components/PrivateRoutes";
+// import PrivateRoutes from "./components/PrivateRoutes";
 import NavbarContainer from "./components/NavbarComponent";
 import Home from "./pages/Home";
 import SignupContainer from "./components/SignupComponent";
@@ -23,10 +23,11 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignupContainer />} />
         <Route path="/login" element={<LoginContainer />} />
-        <Route path="/" element={<Home />} exact />
-        <Route element={<PrivateRoutes />}>
+        <Route path="/" element={<Home />} />
+        {/* <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<DashboardContainer />} />
-        </Route>
+        </Route> */}
+        <Route path="/dashboard" element={<DashboardContainer />} />
       </Routes>
       <Footer />
     </div>

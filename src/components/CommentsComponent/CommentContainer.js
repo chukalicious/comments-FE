@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import Comment from "./Comment";
 import { connect } from "react-redux";
+import { getComments } from "../../store/actions";
 
 const CommentContainer = (props) => {
+  console.log("CommentContainer: props: ", props);
+
+  useEffect(() => {
+    props.getComments();
+  }, []);
   return (
     <div>
       {props.isLoading === true ? (
@@ -30,7 +37,9 @@ const mapStateToProps = (state) => {
   return {
     comments: state.comments.comments,
     isLoading: state.comments.isLoading,
+    errors: state.comments.errors,
+    user: { ...state.user },
   };
 };
 
-export default connect(mapStateToProps, {})(CommentContainer);
+export default connect(mapStateToProps, { getComments })(CommentContainer);
