@@ -24,9 +24,10 @@ function App() {
         <Route path="/signup" element={<SignupContainer />} />
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/" element={<Home />} />
-        <Route element={<PrivateRoutes />}>
+        {/* <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<DashboardContainer />} />
-        </Route>
+        </Route> */}
+        <Route path="/dashboard" element={<DashboardContainer />} />
       </Routes>
       <Footer />
     </div>
