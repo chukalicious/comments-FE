@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../store/actions/index";
 import { connect } from "react-redux";
 import * as yup from "yup";
@@ -43,6 +43,14 @@ const Login = (props) => {
       );
   };
 
+  // Navigation //
+
+  const navigate = useNavigate();
+
+  const navigateToDashboard = async () => {
+    await navigate("/dashboard");
+  };
+
   const inputChange = (name, value) => {
     validate(name, value);
     setCredentials({
@@ -60,7 +68,7 @@ const Login = (props) => {
     e.preventDefault();
     props.login(credentials);
     localStorage.setItem("token", props.token);
-    <Navigate to="/dashboard" />;
+    navigateToDashboard();
   };
 
   useEffect(() => {
