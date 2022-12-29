@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { signup } from "../../store/actions/index";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { clearForm } from "../../helpers/clearForm";
 
 const initialState = {
   email: "",
@@ -48,8 +49,12 @@ const Signup = (props) => {
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
-  const clearForm = () => {
-    setSignupState(initialState);
+  // Navigation //
+
+  const navigate = useNavigate();
+
+  const navigateToDashboard = async () => {
+    await navigate("/dashboard");
   };
 
   const inputChange = (name, value) => {
@@ -68,7 +73,8 @@ const Signup = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.signup(signupState);
-    clearForm();
+    clearForm(setSignupState, initialState);
+    navigateToDashboard();
   };
 
   useEffect(() => {

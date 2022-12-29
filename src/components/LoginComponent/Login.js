@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../store/actions/index";
 import { connect } from "react-redux";
 import * as yup from "yup";
+import { clearForm } from "../../helpers/clearForm";
 
 const initialState = {
   email: "",
@@ -68,6 +69,7 @@ const Login = (props) => {
     e.preventDefault();
     props.login(credentials);
     localStorage.setItem("token", props.token);
+    clearForm(setCredentials, initialState);
     navigateToDashboard();
   };
 
