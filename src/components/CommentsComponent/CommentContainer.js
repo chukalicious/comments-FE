@@ -1,10 +1,13 @@
 import { ThreeDots } from "react-loader-spinner";
 import Comment from "./Comment";
+import RefreshComments from "./RefreshComments";
 import { connect } from "react-redux";
 
 const CommentContainer = (props) => {
+  console.log("CommentContainer: props: ", props);
   return (
     <div>
+      <RefreshComments />
       {props.isLoading === true ? (
         <div className="flex h-[100vh] z-10 w-full justify-center text-9xl bg-base-100 pt-20">
           <ThreeDots
