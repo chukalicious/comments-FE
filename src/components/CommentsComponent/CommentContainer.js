@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import Comment from "./Comment";
-import RefreshComments from "./RefreshComments";
 import { connect } from "react-redux";
+import { getComments } from "../../store/actions";
 
 const CommentContainer = (props) => {
   console.log("CommentContainer: props: ", props);
+
+  useEffect(() => {
+    props.getComments();
+  }, []);
   return (
     <div>
-      <RefreshComments />
       {props.isLoading === true ? (
         <div className="flex h-[100vh] z-10 w-full justify-center text-9xl bg-base-100 pt-20">
           <ThreeDots
@@ -33,7 +37,9 @@ const mapStateToProps = (state) => {
   return {
     comments: state.comments.comments,
     isLoading: state.comments.isLoading,
+    errors: state.comments.errors,
+    user: { ...state.user },
   };
 };
 
-export default connect(mapStateToProps, {})(CommentContainer);
+export default connect(mapStateToProps, { getComments })(CommentContainer);
