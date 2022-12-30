@@ -1,18 +1,62 @@
 import { useState, useEffect } from "react";
 import { clearForm } from "../../helpers/clearForm";
+import * as yup from "yup";
 
 const initialState = {
   title: "",
   comment: "",
 };
 
+const initialErrors = {
+  title: "",
+  comment: "",
+};
+
+const initialDisabled = true;
+
 const AddComment = () => {
   // Local State //
   const [postFields, setPostFields] = useState(initialState);
   console.log("AddComment: postFields: ", postFields);
 
+  // Validation State //
+  const [formErrors, setFormErrors] = useState(initialErrors);
+  console.log("AddComment: formErrors: ", formErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
+
+  const formSchema = yup.object().shape({
+    title: yup
+      .string()
+      .required("You must add a title to your post")
+      .max(120, "You've exceeded the character limit for the title")
+      .min(2, "Must include at least two characters"),
+    comment: yup
+      .string()
+      .required("You forgot your comment!")
+      .min(1, "You must enter something!")
+      .max(260, "You've exceeded the max characters"),
+  });
+
+  const validateSchema = (name, value) => {
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
+  const inputChange = (name, value) => {
+    validateSchema(name, value);
+    setPostFields({ ...postFields, [name]: value });
+  };
+
+  useEffect(() => {
+    formSchema.isValid(postFields).then((valid) => setDisabled(!valid));
+  }, [postFields, formErrors, formSchema]);
+
+  // Controls //
   const handleChange = (e) => {
-    setPostFields({ ...postFields, [e.target.name]: e.target.value });
+    inputChange(e.target.name, e.target.value);
   };
 
   const handleSubmit = (e) => {
