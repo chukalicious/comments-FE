@@ -1,7 +1,15 @@
 import Dashboard from "./Dashboard";
+import CommentContainer from "../CommentsComponent";
+import AddCommentContainer from "../AddComment";
 
 const DashboardContainer = () => {
-  return <Dashboard />;
+  return (
+    <>
+      <Dashboard />
+      <CommentContainer />
+      <AddCommentContainer />
+    </>
+  );
 };
 
 export default DashboardContainer;
