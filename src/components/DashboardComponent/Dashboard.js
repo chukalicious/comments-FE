@@ -2,9 +2,9 @@ import CommentContainer from "../CommentsComponent";
 const Dashboard = () => {
   return (
     <div>
-      <div>
+      {/* <div>
         <p>The actual dashboard will go in this above section</p>
-      </div>
+      </div> */}
       <div>
         <CommentContainer />{" "}
       </div>

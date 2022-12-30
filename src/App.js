@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-base-200">
       <NavbarContainer />
       <Routes>
         <Route path="/signup" element={<SignupContainer />} />
