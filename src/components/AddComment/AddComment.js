@@ -1,7 +1,25 @@
+import { useState, useEffect } from "react";
+import { clearForm } from "../../helpers/clearForm";
+
+const initialState = {
+  title: "",
+  comment: "",
+};
+
 const AddComment = () => {
+  // Local State //
+  const [postFields, setPostFields] = useState(initialState);
+  console.log("AddComment: postFields: ", postFields);
+
+  const handleChange = (e) => {
+    setPostFields({ ...postFields, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    clearForm(setPostFields, initialState);
   };
+
   return (
     <div className="card card-side bg-base-100 my-8 mx-4">
       <form onSubmit={handleSubmit} className="card-body">
@@ -11,7 +29,10 @@ const AddComment = () => {
               <span className="label-text">Post a comment!</span>
             </label>
             <input
+              onChange={handleChange}
               type="text"
+              name="title"
+              value={postFields.title}
               placeholder="Enter your post title..."
               className="input input-bordered input-primary w-full max-w-sm"
             />
@@ -20,7 +41,10 @@ const AddComment = () => {
             </label>
           </div>
           <textarea
+            onChange={handleChange}
             type="text"
+            name="comment"
+            value={postFields.comment}
             placeholder="Add a comment..."
             className="input input-bordered input-primary w-full h-48 max-w-sm"
           />
