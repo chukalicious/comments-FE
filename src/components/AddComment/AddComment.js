@@ -6,6 +6,19 @@ const AddComment = () => {
     <div className="card card-side bg-base-100 my-8 mx-4">
       <form onSubmit={handleSubmit} className="card-body">
         <div className="max-h-fit">
+          <div className="form-control w-full max-w-sm">
+            <label className="label">
+              <span className="label-text">Post a comment!</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your post title..."
+              className="input input-bordered input-primary w-full max-w-sm"
+            />
+            <label className="label">
+              <span className="label-text-alt"></span>
+            </label>
+          </div>
           <textarea
             type="text"
             placeholder="Add a comment..."
