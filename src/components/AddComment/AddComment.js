@@ -80,6 +80,7 @@ const AddComment = () => {
               placeholder="Enter your post title..."
               className="input input-bordered input-primary w-full max-w-sm"
             />
+            <div className="label text-error">{formErrors.title}</div>
             <label className="label">
               <span className="label-text-alt"></span>
             </label>
@@ -92,6 +93,7 @@ const AddComment = () => {
             placeholder="Add a comment..."
             className="input input-bordered input-primary w-full h-48 max-w-sm"
           />
+          <div className="label text-error">{formErrors.comment}</div>
         </div>
         <div className="card-actions flex pt-2 justify-between">
           <div className="avatar w-[20%] h-fit">
@@ -102,7 +104,9 @@ const AddComment = () => {
               />
             </div>
           </div>
-          <button className="btn btn-lg btn-primary mx-2">Send</button>
+          <button disabled={disabled} className="btn btn-lg btn-primary mx-2">
+            Send
+          </button>
         </div>
       </form>
     </div>
