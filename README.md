@@ -4,6 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Backend for this repo is located at
 
-https://github.com/chukalicious/comments_BE/settings
+https://github.com/chukalicious/comments_BE/
 
 
