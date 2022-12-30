@@ -10,6 +10,7 @@ const CommentContainer = (props) => {
   useEffect(() => {
     props.getComments();
   }, []);
+
   return (
     <div>
       {props.isLoading === true ? (
