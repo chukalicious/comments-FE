@@ -2,8 +2,6 @@ import VoteButtonsContainer from "../VoteComponent";
 import { FaReply } from "react-icons/fa";
 
 const Comment = (props) => {
-  console.log("Comment: props: commentsData: ", props);
-
   return (
     <div className="card card-side bg-base-100 my-8 mx-4">
       <div className="card-body">
