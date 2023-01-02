@@ -14,14 +14,15 @@ const initialErrors = {
 
 const initialDisabled = true;
 
-const AddComment = () => {
+const AddComment = (props) => {
+  console.log("AddComment: props: ", props);
+
   // Local State //
   const [postFields, setPostFields] = useState(initialState);
   console.log("AddComment: postFields: ", postFields);
 
   // Validation State //
   const [formErrors, setFormErrors] = useState(initialErrors);
-  console.log("AddComment: formErrors: ", formErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
   const formSchema = yup.object().shape({
@@ -61,6 +62,8 @@ const AddComment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.getPost({ ...postFields });
+    props.postComment();
     clearForm(setPostFields, initialState);
   };
 

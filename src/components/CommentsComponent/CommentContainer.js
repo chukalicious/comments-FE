@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { getComments } from "../../store/actions";
 
 const CommentContainer = (props) => {
-  console.log("CommentContainer: props: ", props);
-
   useEffect(() => {
     props.getComments();
   }, []);
