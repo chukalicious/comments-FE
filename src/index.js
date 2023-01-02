@@ -14,13 +14,11 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import { commentsReducer } from "./store/reducers/CommentsReducer";
-import { signupReducer } from "./store/reducers/SignupReducer";
-import { loginReducer } from "./store/reducers/LoginReducer";
+import { userReducer } from "./store/reducers/UserReducer";
 
 const reducers = combineReducers({
   comments: commentsReducer,
-  signup: signupReducer,
-  login: loginReducer,
+  user: userReducer,
 });
 
 const store = configureStore(
